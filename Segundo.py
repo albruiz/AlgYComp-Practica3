@@ -20,7 +20,7 @@ def calculaValores(matrix, n, m):
     valorUnitario2 = math.pi/(m-1)
     for i in range(n):
         for j in range(m):
-            valorCalculado = math.sin(i*valorUnitario1) + math.sin(i*valorUnitario2) + math.cos(i*valorUnitario1)*math.sin(i*valorUnitario2)
+            valorCalculado = math.sin(i*valorUnitario1) + math.sin(j*valorUnitario2) + math.cos(i*valorUnitario1)*math.sin(j*valorUnitario2)
             matrix[i][j]= valorCalculado
     
     return matrix
@@ -70,7 +70,7 @@ def dibujarValores(matrix,n,m):
     plot(xColorr,yColorr,'sr')
     plot(xColorc,yColorc,'sc')
     plot(xColorm,yColorm,'sy')
-    ###
+
     random.seed(a = 1312, version = 2) #seed = 1312, para el seguimiento
     xRandom = random.randint(0, n-1)
     yRandom = random.randint(0, m-1)
