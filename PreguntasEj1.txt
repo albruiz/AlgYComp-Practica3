@@ -1,0 +1,16 @@
+Respondiendo las preguntas:
+¿Qué condiciones tiene que cumplir la función para que el algoritmo voraz 
+encuentre siempre el máximo de la función en esos rangos?:
+
+Para que el algoritmo encuentre siempre el máximo de la función siempre debe comparar
+con valores que tengan mayores y menores valores para las coordenadas porque así podrá 
+avanzar las posiciones determinadas para al final encontrar el valor máximo, en el caso
+de que si llegase a un punto en el que la función se "aplanase", aunque hubiera un máximo 
+en una posición cercana, no lo llegaría a encontrar porque compararía siempre con un rango
+de 4 puntos. Para que siempre logre encontrar el máximo en una de estas funciones es 
+recomendable usar unos conjuntos de puntos vecinos más grandes, así se pueden comprobar
+más puntos. Y en este caso que no exista un máximo relativo sobre un área de puntos
+donde el algoritmo no pueda analizar puntos más allá de los 4 que comprueba, porque entonces
+no saldrá de ese máximo relativo.
+
+Al ser la elección aleatorio en otro tipo de función esto podría darse.

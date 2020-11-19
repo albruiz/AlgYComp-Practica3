@@ -76,6 +76,7 @@ def dibujarValores(matrix,n,m):
     yRandom = random.randint(0, m-1)
     matrizIntermedia = [[-1,-1],[], [xRandom, yRandom]]
     matrizIntermedia = HillClimbing(matrix,n,m,xRandom,yRandom,matrizIntermedia)
+    print(matrizIntermedia[1])
     dibujarValores2(matrizIntermedia,n,m)
     show()
 
@@ -86,8 +87,8 @@ def dibujarValores2(matrizSolucion,n,m):
     x = []
     y = []
     for i in range(len(matrizSolucion[1])):
-        x.append((matrizSolucion[1][i][0])*math.pi/n-1)
-        y.append((matrizSolucion[1][i][1])*math.pi/m-1)
+        x.append(((matrizSolucion[1][i][0])*math.pi)/(n-1))
+        y.append(((matrizSolucion[1][i][1])*math.pi)/(m-1))
     x = np.array(x)
     y = np.array(y) 
     # posiciones intermedias iran en color negro
@@ -95,8 +96,8 @@ def dibujarValores2(matrizSolucion,n,m):
     # posicion máxima ira en rojo  
 
     plot(x,y,'sk')
-    plot((matrizSolucion[2][0])*math.pi/n-1,(matrizSolucion[2][1])*math.pi/m-1, 'sb')
-    plot((matrizSolucion[0][0])*math.pi/n-1,(matrizSolucion[0][1])*math.pi/m-1, 'sr')
+    plot(((matrizSolucion[2][0])*math.pi)/(n-1),((matrizSolucion[2][1])*math.pi)/(m-1), 'sb')
+    plot(((matrizSolucion[0][0])*math.pi)/(n-1),((matrizSolucion[0][1])*math.pi)/(m-1), 'sr')
     #show()
 
 
@@ -219,7 +220,7 @@ matrix = calculaValores(matrix,n,m)
 dibujarValores(matrix,n,m)
 
 
-
+'''
 random.seed(a = 1312, version = 2) #seed = 1312, para el seguimiento
 xRandom = random.randint(0, n-1)
 yRandom = random.randint(0, m-1)
@@ -228,7 +229,6 @@ matrizIntermedia = HillClimbing(matrix,n,m,xRandom,yRandom,matrizIntermedia)
 
 dibujarValores2(matrizIntermedia,n,m)
 
-'''
 matrizPrueba = [[1,2,3,4],[2,3,4,5],[2,3,4,5],[5,6,7,8]]
 random.seed(a = 1312, version = 2) #seed = 1312, para el seguimiento
 xRandom = random.randint(0, 4-1)
