@@ -103,13 +103,8 @@ def dibujarValores(matrix,n,m):
     plot(xColorc,yColorc,'sc')
     plot(xColorm,yColorm,'sy')
 
-    random.seed(a = 1312, version = 2) #seed = 1312, para el seguimiento
-    xRandom = random.randint(0, n-1)
-    yRandom = random.randint(0, m-1)
-    matrizIntermedia = [[-1,-1],[], [xRandom, yRandom]]
-    matrizIntermedia = HillClimbing(matrix,n,m,xRandom,yRandom,matrizIntermedia)
-    dibujarValores2(matrizIntermedia,n,m)
-    show()
+    HillClimbingModificada(matrix,n,m)
+
 
 
 # Funcion que se encargara de colorear los puntos que han sido intermedios 
@@ -131,9 +126,24 @@ def dibujarValores2(matrizSolucion,n,m):
     plot(((matrizSolucion[0][0])*math.pi)/(n-1),((matrizSolucion[0][1])*math.pi)/(m-1), 'sr')
     #show()
 
+# Funcion que realiza la llamada a HillClimbing tantas veces como puntos
+# se hayan generado, el numero de puntos P, se genera de manera aleatoria
+# siguiendo la semilla determinada P será siempre un valor entre [0, n/2]
+# por decision del programador
+def HillClimbingModificada(matrix,n,m):
+    random.seed(a = 1312, version = 2) #seed = 1312, para el seguimiento
+    P = random.randint(0, n/2)
+    for i in range(P):
+        random.seed(a = i, version = 2)
+        xRandom = random.randint(0, n-1)
+        yRandom = random.randint(0, m-1)
+        matrizIntermedia = [[-1,-1],[], [xRandom, yRandom]]
+        matrizIntermedia = HillClimbing(matrix,n,m,xRandom,yRandom,matrizIntermedia)
+        dibujarValores2(matrizIntermedia,n,m)
+    show()
+    
 
-
-# Funcion HillClimbing que de manera voraz encuentra el maximo valor
+# Funcion HillClimbing que de manera voraz encuentra el maximo valor 
 # dentro de la matriz de valores.
 # Parametros: matriz, numFilas, numColumnas, coordX del pivote, coordY del pivote,
 # matriz que almacena los puntos por los que pasa
