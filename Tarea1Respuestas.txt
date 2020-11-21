@@ -1,0 +1,53 @@
+Tarea1.py = programa modificado para hacer la Tarea1
+Tarea2.py = programa modificado para hacer la Tarea2
+EjercicioMonteCarlo.py = programa para hacer el lab3.2
+
+Tarea1:
+Pregunta 1:
+    Analizando el dibujo, con la semilla que estoy usando se generan X puntos según el tamaño de la matriz (así lo he programado), X es un número random entre 0 y m/2, en el caso de prueba
+    de una matriz 100x100 genera 35 puntos de los cuales 9 no encuntran el máximo absoluto. Es decir que 9/35 se han perdido buscando el máximo. Diría que nunca logra obtener una tasa de 
+    acierto tan alta como para decir que la probabilidad de que encuentre el valor máximo es de 0.999
+
+Tarea2:
+Pregunta 2:
+    De primeras usando el método de generar x puntos aleatorios, me da un fallo de memoria lo soluciono con este codigo de StackOverflow: https://stackoverflow.com/questions/3323001/what-is-the-maximum-recursion-depth-in-python-and-how-to-increase-it
+
+            import sys
+            sys.setrecursionlimit(3000)
+    usando los valores aleatorios que me genera para tener unos puntos iniciales aleatorios, X = 569, pero con solo este numero tarda 1.4411666393s por lo que lo aumento a mano 
+        x = 700 ---> 1.6744346619s
+        x = 1000 ---> 2.3374052048s
+        x = 850 ---> 2.0041592121s
+        x = 820 ---> 1.9301087856s
+
+    Con la modificacion hecha :
+        x = 820 ---> 6.1884534359s
+        asi que reducimos
+        x = 250 ---> 1.8941698074s
+        x = 300 ---> 2.1825327873s
+        x = 275 ---> 2.0038900375s
+
+    Con la última modificacion:
+        x = 275 ---> 0.5177371502s
+        x = 900 ---> 1.9910328388
+        x = 925 ---> 2.0057437420
+
+Preguntas:
+Explica cómo has generado el mapa de calor y pintado las rutas encima en tu lenguaje de programación.
+    He usado matplotlib, una librería de python, me he basado en sus comandos:
+        plot(x,y,'sk'), x = coordenadas de X y = coordenadas de Y 'sk' = color y forma
+        show(), mostrar la grafica que tiene almacenada
+Explica como has modificado el código para la Tarea 2 en tu caso particular y cómo has comprobado que los resultados eran correctos (los mismos que en la versión no modificada).
+    He ido comprobando con print que he usado para obtener el máximo valor y en ambos es lo mismo.
+    Por lo tanto como los resultados son los mismos, está bien.
+¿Qué conclusiones has obtenido sobre los cambios en el coste al introducir las técnicas de la Tarea 2? ¿Qué versiones son mejores o peores y por qué? ¿Tiene algo que ver la función que estés explorando?
+    Completar la matriz con valores, toma en mi caso: 5.9221608639s, en el caso de que se calculen todos a la vez
+    antes de usar la matriz, es decir rellenarla entera. En el caso de que no se haga así sino que se vaya completando
+    cuando se pasa por los puntos el tener que hacerlo dinamicamente hace que el tiempo aumente mucho y que por ejemplo
+    para que podamos encontrar el maximo hace falta reducir en una cantidad muy grande el número de rutas que comprobará 
+    el programa. 
+    Sin duda el mejor caso es en el que comprueba si la ruta ya está hecha ya que se ahorra muchos cálculos unicamente con hacer una comprobación
+    sobre un punto, cuando encuentre el punto que une una ruta con otra para y ahorra mucha computación.
+
+    En el caso de si tiene que ver con la función matemática con la que trabajamos, diría que no, basicamente
+    porque los calculos tienen coste O(1), por lo tanto da igual que función estemos calculando.

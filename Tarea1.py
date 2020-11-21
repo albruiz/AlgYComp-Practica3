@@ -1,10 +1,7 @@
 '''
 Alberto Ruiz Andres
 
-    f1(x,y) = sin(x) + cos(y) + sin(x) * cos(y) + sin(x*2)
-    f2(x,y) = 2 * sin(x) * cos(y/2) + x +  log( abs(y-pi/2))
-    f3(x,y) = sin(x) * cos(y) + sqrt(x*y)
-    f4(x,y) =  sin( x*7 ) + cos( (y+pi/4)*4 ) + (x+y)
+g(x,y) = cos((x*x+y*y)*12)/(2*((x*x+y*y)*6.28+1))  Rango [-1:2][-1:2]
 
 '''
 
@@ -21,39 +18,17 @@ import random
 
 # Funcion que se encarga de calcular los valores de la funcion matematica y añadirlos a la matriz
 # Parametros: matriz, numFilas, numColumnas, indexFormula
-def calculaValores(matrix, n, m, decision):
+def calculaValores(matrix, n, m):
     
-    valorUnitario1 = math.pi/(n-1)
-    valorUnitario2 = math.pi/(m-1)
+    valorUnitarioFilas = 3/n
+    valorUnitarioColumnas = 3/m
 
-    #f1(x,y) = sin(x) + cos(y) + sin(x) * cos(y) + sin(x*2)
-    if decision == 1 :
-        for i in range(n):
-            for j in range(m):
-                valorCalculado = math.sin(i*valorUnitario1) + math.cos(j*valorUnitario2) + (math.sin(i*valorUnitario1) * math.cos(j*valorUnitario2)) + math.sin(2*(i*valorUnitario1))
-                matrix[i][j]= valorCalculado
+    #g(x,y) = cos((x*x+y*y)*12)/(2*((x*x+y*y)*6.28+1))  Rango [-1:2][-1:2]
 
-    #f2(x,y) = 2 * sin(x) * cos(y/2) + x +  log( abs(y-pi/2))
-    elif decision == 2 :
-        for i in range(n):
-            for j in range(m):
-                valorCalculado = 2 * math.sin(i*valorUnitario1) + math.cos((j*valorUnitario2)/2) + (i*valorUnitario1) + math.log((abs((j*valorUnitario2)-(math.pi/2))), 10)
-                matrix[i][j]= valorCalculado
-    
-    #f3(x,y) = sin(x) * cos(y) + sqrt(x*y)
-    elif decision == 3 :
-        for i in range(n):
-            for j in range(m):
-                valorCalculado = (math.sin(i*valorUnitario1) * math.cos(j*valorUnitario2)) + math.sqrt((i*valorUnitario1)*(j*valorUnitario2))
-                matrix[i][j]= valorCalculado
-
-    #f4(x,y) =  sin( x*7 ) - cos(4y) + (x+y)
-    else:
-        for i in range(n):
-            for j in range(m):
-                valorCalculado = math.sin(7*(i*valorUnitario1)) + math.cos(4*(j*valorUnitario2)) + (i*valorUnitario1)+(j*valorUnitario2)
-                matrix[i][j]= valorCalculado
-
+    for i in range(n):
+        for j in range(m):
+            valorCalculado = (math.cos((((i*valorUnitarioFilas) -1 )**2) +(((j*valorUnitarioColumnas) -1)**2)))/(2*( ((((i*valorUnitarioFilas) -1 )**2) + (((j*valorUnitarioColumnas) -1)**2))*6.28 + 1))
+            matrix[i][j]= valorCalculado
     
     return matrix
 
@@ -65,8 +40,8 @@ def dibujarValores(matrix,n,m):
     z = []
     for i in range(n):
         for j in range(m):
-            x.append(i*math.pi/(n-1))
-            y.append(j*math.pi/(m-1))
+            x.append((i*3/n) -1 )
+            y.append((j*3/m) -1 )
             z.append(matrix[i][j])
     x = np.array(x)
     y = np.array(y)
@@ -113,8 +88,8 @@ def dibujarValores2(matrizSolucion,n,m):
     x = []
     y = []
     for i in range(len(matrizSolucion[1])):
-        x.append(((matrizSolucion[1][i][0])*math.pi)/(n-1))
-        y.append(((matrizSolucion[1][i][1])*math.pi)/(m-1))
+        x.append(((matrizSolucion[1][i][0])*3/n)-1) 
+        y.append(((matrizSolucion[1][i][1])*3/m)-1) 
     x = np.array(x)
     y = np.array(y) 
     # posiciones intermedias iran en color negro
@@ -122,8 +97,8 @@ def dibujarValores2(matrizSolucion,n,m):
     # posicion máxima ira en rojo  
 
     plot(x,y,'sk')
-    plot(((matrizSolucion[2][0])*math.pi)/(n-1),((matrizSolucion[2][1])*math.pi)/(m-1), 'sb')
-    plot(((matrizSolucion[0][0])*math.pi)/(n-1),((matrizSolucion[0][1])*math.pi)/(m-1), 'sr')
+    plot(((matrizSolucion[2][0])*3/n)-1 ,((matrizSolucion[2][1])*3/m)-1 , 'sb')
+    plot(((matrizSolucion[0][0])*3/n)-1 ,((matrizSolucion[0][1])*3/m)-1, 'sr')
     #show()
 
 # Funcion que realiza la llamada a HillClimbing tantas veces como puntos
@@ -133,6 +108,7 @@ def dibujarValores2(matrizSolucion,n,m):
 def HillClimbingModificada(matrix,n,m):
     random.seed(a = 1312, version = 2) #seed = 1312, para el seguimiento
     P = random.randint(0, n/2)
+    print(P)
     for i in range(P):
         random.seed(a = i, version = 2)
         xRandom = random.randint(0, n-1)
@@ -257,13 +233,5 @@ while n <= 1 or m <= 1:
     n = int(input("introduce n: "))
     m = int(input("introduce m: "))
 matrix = np.zeros((n, m))
-eleccion = -1
-condicion = False
-while condicion == False :
-    print("Introduce un numero entre el 1 y el 4 para elegir la funcion sobre la que trabajaremos \n 1) f1(x,y) = sin(x) + cos(y) + sin(x) * cos(y) + sin(x*2) \n 2) f2(x,y) = 2 * sin(x) * cos(y/2) + x +  log( abs(y-pi/2)) \n 3) f3(x,y) = sin(x) * cos(y) + sqrt(x*y) \n 4) f4(x,y) =  sin( x*7 ) + cos( (y+pi/4)*4 ) + (x+y) \n ")
-    eleccion = int(input())
-    if eleccion == 1 or eleccion == 2 or eleccion == 3 or eleccion == 4:
-        condicion = True
-
-matrix = calculaValores(matrix,n,m, eleccion)
+matrix = calculaValores(matrix,n,m)
 dibujarValores(matrix,n,m)
